@@ -1,0 +1,5 @@
+name = Duration HHMMSS
+description = "Adds a formatter to Integer fields for displaying track lengths as hh:mm:ss"
+package = Custom Modules
+core = 7.x
+files[] = duration_hhmmss.module

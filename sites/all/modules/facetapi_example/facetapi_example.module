@@ -1,0 +1,162 @@
+<?php
+/**
+ * @file
+ * Implements the hooks for the facetapi, the search engine and the admin pages
+ */
+
+/**
+ * Implements hook_facetapi_searcher_info().
+ */
+function facetapi_example_facetapi_searcher_info() {
+  return array(
+    'facetapi_example' => array(
+      'label' => t('Example facetapi search'),
+      'adapter' => 'facetapi_example',
+      'url processor' => 'standard',
+      'types' => array('node'),
+      'path' => 'admin/config/search/facetapi_example',
+      'supports facet missing' => TRUE,
+      'supports facet mincount' => TRUE,
+      'include default facets' => FALSE, // The facets are really basic here
+    ),
+  );
+}
+
+/**
+ * Implements hook_facetapi_facet_info().
+ */
+function facetapi_example_facetapi_facet_info(array $searcher_info) {
+  $facets = array();
+
+  // Facets are usually associated with the type of content stored in the index.
+  // Here we only have facets on nodes, and facets have nothing to do with Drupal fields
+  // See also modules search_facetapi for usage with Drupal fields
+  if (isset($searcher_info['types']['node'])) {
+    // These are very simplified facets
+    $facets['suggestion'] = array(
+      'label' => t('Proximity suggestion'),
+      'description' => t('An example facet, showing words appearing near the search term.'),
+      'field' => 'suggestion',
+      "query type" => "facetapi_example_term",
+    );
+
+  $facets["length"] = array(
+      'label' => t('Length of the article'),
+      'description' => t('An example facet, using word count in the body.'),
+      'field' => 'length',
+      "query type" => "facetapi_example_term"
+    );
+  }
+
+  return $facets;
+}
+
+/**
+ * Implements hook_facetapi_adapters().
+ */
+function facetapi_example_facetapi_adapters() {
+  return array(
+    'facetapi_example' => array(
+      'handler' => array(
+        'class' => 'FacetapiExampleAdapter',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_facetapi_query_types().
+ */
+function facetapi_example_facetapi_query_types() {
+  return array(
+    'facetapi_example_term' => array(
+      'handler' => array(
+        'class' => 'FacetapiExampleTerm',
+        'adapter' => 'facetapi_example',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_search_info().
+ */
+function facetapi_example_search_info() {
+  return array(
+    'title' => 'Facetapi example',
+    'path' => 'facetapi_example',
+  );
+}
+
+/**
+ * Implements hook_search_execute().
+ */
+function facetapi_example_search_execute($keys = NULL, $conditions = NULL) {
+  // Ensures the adapter is valid.
+  if (!$adapter = facetapi_adapter_load('facetapi_example')) {
+    return array();
+  }
+
+  // Sets search keys and adds active filters.
+  $adapter->setSearchKeys($keys);
+
+  $query = new FacetapiExampleQuery($keys);
+
+  $adapter->addActiveFilters($query);
+  $adapter->query = $query;
+
+  $results = $query->execute();
+
+  $adapter->hasMatches = (count($results) <= 0) ? False: True;
+
+  return $results;
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+
+function facetapi_example_menu() {
+  $items['admin/config/search/facetapi_example'] =
+    array(
+      'title' => 'Example faceted search settings',
+      //'weight' => -10,
+      'type' => MENU_NORMAL_ITEM,
+      'page callback' => 'facetapi_example_config',
+      'access arguments' => array('administer search'),
+      );
+
+  $items['admin/config/search/facetapi_example/index'] =
+    array(
+      'title' => 'Example faceted search basic settings',
+      //'weight' => -10,
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      );
+
+  $items["admin/config/search/facetapi_example/reindex"] =
+    array(
+      'title' => 'Recreate the index',
+      //'weight' => -10,
+      'type' => MENU_LOCAL_TASK,
+      'page callback' => 'facetapi_example_index',
+      'access arguments' => array('administer search'),
+      'file' => 'facetapi_example.engine.inc',
+      );
+  return $items;
+}
+
+function facetapi_example_config() {
+  return drupal_get_form("facetapi_example_config_form");
+}
+
+function facetapi_example_config_form() {
+  $form = array();
+  $form["facetapi_example_index_dir"] =
+    array("#type" => "textfield",
+      "#title" => t("Directory where the indexes are stored"),
+      "#description" => t("The full system path to the indexes (default : /tmp)"));
+
+  $form = system_settings_form($form);
+  return $form;
+}

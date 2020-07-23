@@ -1,0 +1,529 @@
+Facet API implementation tutorial
+=================================
+
+Context
+-------
+This tutorial shows how to implement basic facet functionnality with
+the Facet API. It is voluntarily stripped down to ease comprehension.
+
+There are 3 parts to the working example:
+ - example data in module facetapi_example_data;
+ - the (very simplistic) "search engine" itself;
+ - the Facet API implementation
+
+The search engine here should be seen as a placeholder. It is unable
+to handle much data (limited to aroud 100 documents each containing
+100 words), with no incremental indexation. It can only search one
+keyword.
+
+It defines two "facets", which are returned with every result that is
+not filtered :
+ - a proximity facet, giving terms appearing near the search key;
+ - a length facet, to filter by the number of words of the documents.
+
+To have Drupal use this search engine, the module implements the
+hook_search_info() and hook_search_execute(). As this is not the point
+of this module, no effort has been made to complete the search engine
+integration into Drupal.
+
+Facet API : the pieces
+----------------------
+There are several parts to the Facet API:
+ - the hooks declaring facets
+ - the adapter (it extends the FacetapiAdapter class)
+ - the search engine query class
+ - the query type classes (which extend FacetapiQuery)
+
+First steps : the adapter
+-------------------------
+In such a basic setting, the adapter is mostly empty.
+
+The first step is to delare the adapter to the Facet API, by
+implementing hook_facetapi_adapters().
+
+
+[hook_facetapi_adapters in facetapi_example.module]
+<?php 
+/**
+ * Implements hook_facetapi_adapters().
+ */
+function facetapi_example_facetapi_adapters() {
+  return array(
+    'facetapi_example' => array(
+      'handler' => array(
+        'class' => 'FacetapiExampleAdapter',
+      ),
+    ),
+  );
+}
+
+?>
+
+This declares the "facetapi_example" adapter, which is implemented by
+the class FacetapiExampleAdapter. The adapter derives from the
+abstract class FacetapiAdapter and must implement the methods
+searchExecuted() and suppressOutput().
+
+We define this class in plugins/facetapi/adapter.inc
+
+[adapter.inc]
+<?php
+
+/**
+ * @file
+ * Classes used by the Facet API module.
+ */
+
+/**
+ * Facet API adapter example.
+ */
+class FacetapiExampleAdapter extends FacetapiAdapter {
+  /**
+   * Returns a boolean flagging whether $this->searcher executed a search.
+   */
+  public function searchExecuted() {
+    return !empty($this->keys);
+  }
+
+  /**
+   * Returns a boolean flagging whether facets in a realm shoud be displayed.
+   */
+  public function suppressOutput($realm_name) {
+    return FALSE;
+  }
+}
+?>
+
+Definition of the search engine
+-------------------------------
+We now declare the search engine to Facetapi, with the
+hook_facetapi_searcher_info().
+
+Note that to be able to activate the facets in the administration
+pages, it is essential to define correctly the "path" item.
+
+[hook_facetapi_searcher_info in facetapi_example.module]
+<?php 
+/**
+ * Implements hook_facetapi_searcher_info().
+ */
+function facetapi_example_facetapi_searcher_info() {
+  return array(
+    'facetapi_example' => array(
+      'label' => t('Example facetapi search'),
+      'adapter' => 'facetapi_example',
+      'url processor' => 'standard',
+      'types' => array('node'),
+      'path' => 'admin/config/search/facetapi_example',
+      'supports facet missing' => TRUE,
+      'supports facet mincount' => TRUE,
+      'include default facets' => FALSE, // The facets are really basic here
+    ),
+  );
+}
+?>
+
+
+Facet definition
+----------------
+
+We now have to implement hook_facetapi_facet_info().
+
+[hook_facetapi_facet_info in facetapi_example.module]
+<?php
+
+/**
+ * Implements hook_facetapi_facet_info().
+ */
+function facetapi_example_facetapi_facet_info(array $searcher_info) {
+  $facets = array();
+
+  // Facets are usually associated with the type of content stored in the index.
+  // Here we only have facets on nodes, and facets have nothing to do with Drupal fields
+  // See also modules search_facetapi for usage with Drupal fields
+  if (isset($searcher_info['types']['node'])) {
+    // These are very simplified facets
+    $facets['suggestion'] = array(
+      'label' => t('Proximity suggestion'),
+      'description' => t('An example facet, showing words appearing near the search term.'),
+      'field' => 'suggestion',
+      "query type" => "facetapi_example_term",
+    );
+
+  $facets["length"] = array(
+      'label' => t('Length of the article'),
+      'description' => t('An example facet, using word count in the body.'),
+      'field' => 'length',
+      "query type" => "facetapi_example_term",
+    );
+  }
+
+  return $facets;
+}
+?>
+
+For each facet, we define the following properties:
+ - "label" will appear in the UI as the name of the facet, both on the
+ seach page and the admin page;
+ - "description is a longer descrpition of the facet;
+ - "field" is the system name for the facet;
+ - "query type" is the query type to use for this facet.
+
+Many other options are available, please see the example
+implementation in the facetapi module or the search_facetapi module
+for more informations.
+
+Query type definition
+---------------------
+
+The query types define how to add facet filters to the search engine
+query and what to do with the results.
+
+They are declared with hook_facetapi_query_types().
+
+[hook_facetapi_query_types in facetapi_example.module]
+<?php
+/**
+ * Implements hook_facetapi_query_types().
+ */
+function facetapi_example_facetapi_query_types() {
+  return array(
+    'facetapi_example_term' => array(
+      'handler' => array(
+        'class' => 'FacetapiExampleTerm',
+        'adapter' => 'facetapi_example',
+      ),
+    ),
+  );
+}
+
+Each declared type is associated with a handler, which has two
+elements:
+ - the class implementing this type;
+ - the asapter to which it belongs.
+
+We also have to implement the handler class. It has two methods :
+ - build() handles the interpretation of the results;
+ - execute() handles adding active filters to the search engine query.
+
+For now, empty methods will be enough.
+
+[plugins/facetapi/query_type_term.inc]
+<?php
+/**
+ * @file
+ * Term query type plugin for the Example Faceted Navigation  adapter.
+ */
+
+/**
+ * Plugin for "term" query types.
+ */
+class FacetapiExampleTerm extends FacetapiQueryType implements FacetapiQueryTypeInterface {
+
+  /**
+   * Returns the query type associated with the plugin.
+   *
+   * @return string
+   *   The query type.
+   */
+  static public function getType() {
+    return 'facetapi_example_term';
+  }
+
+  /**
+   * Adds the filter to the query object.
+   *
+   * @param $query
+   *   An object containing the query in the backend's native API.
+   */
+  public function execute($query) {
+     // TODO
+  }
+
+  /**
+   * Initializes the facet's build array.
+   *
+   * @return array
+   *   The initialized render array.
+   */
+  public function build() {
+      //TODO
+  }
+}
+
+The query class
+---------------
+
+Query classes handle the actual request to the search engine. In our
+case, we also store the facet results.
+
+The query classes typically have the following interface :
+ - __construct($keys, $conditions)
+ - execute()
+
+In this particular case, we ignore search conditions, so the class
+goes like this.
+
+[facetapi.query.inc]
+<?php
+
+module_load_include("inc", "facetapi_example", "facetapi_example.engine");
+
+/**
+ * Implements the query object required by facetapi
+ *
+ * Responsibilities: 
+ * - handle the native search
+ * - handler the addition of facets to the search
+ */
+class FacetapiExampleQuery {
+  /**
+   * The search key
+   */
+  var $keys;
+
+  /**
+   * The "suggestion" filter value
+   */
+  var $suggestion;
+  
+  /**
+   * The "length" filter value
+   */
+  var $length;
+
+ 
+  /**
+   * Search conditions are ignored in this toy search engine
+   */
+  function __construct($keys) {
+    $this->keys = $keys;
+    $this->suggestion = '';
+    $this->length = '';
+  }
+}
+?>
+
+This object will be passed to FacetapiQueryTerm::execute() to add
+active filters. We thus add create a new method to add these.
+
+[FacetapiExampleQuery::addFacet]
+<?php
+  /**
+   * Add a filter value for a facet
+   */
+  function addFacet($type, $value) {
+    if ($type == "suggestion") {
+      $this->suggestion = $value;
+    } else if ($type == "length") {
+      $this->length = $value;
+    }
+  }
+?>
+
+Then we implement the actual query to the search engine. The engine
+returns the facets along with the results, so we store then here.
+
+[Facet storage in FacetapiExampleQuery]
+<?php
+  /**
+   * The facet data, as returned by the search engine
+   */
+  var $suggestion_facet = NULL;
+
+  /**
+   * The facet data, as returned by the search engine
+   */
+  var $length_facet = NULL;
+?>
+
+The actual query method, calls the search engine, stores the facets
+and buils the result list.
+
+[FacetapiExampleQuery::execute]
+<?php
+ /**
+   * Actually run the query
+   */
+  function execute() {
+    list($results, $suggest_words, $suggest_length) =
+      facetapi_example_search($this->keys, 
+                  $this->suggestion,
+                  $this->length);
+
+
+    $results = node_load_multiple($results);
+    $rendered = array();
+
+    $this->suggestion_facet = $suggest_words;
+    $this->length_facet = $suggest_length;
+
+    // Build the result list
+    foreach($results as $node) {
+      $build = node_view($node, 'search_index');
+      unset($build['#theme']);
+      $node->rendered = drupal_render($build);
+      $node_extra = module_invoke_all('node_search_result', $node);
+      
+      $uri = entity_uri('node', $node);
+        
+      $rendered[] = array(
+             'link' => url($uri['path'], array_merge($uri['options'], array('absolute' => TRUE))),  
+             'title' => $node->title,
+             'type' => check_plain(node_type_get_name($node)),
+             'user' => theme('username', array('account' => $node)),
+             'date' => $node->changed,
+             'extra' => $node_extra,
+             'node' => $node
+              );
+    }
+    return $rendered;
+  }
+}
+?>
+
+To test, we can implement the hook_search_execute() to see the format
+of the results, along these lines :
+
+<?php
+$query = new FacetapiExampleQuery($keys);
+$results = $query->execute();
+// Here $query contains search results and facets
+// With the devel module activated:
+dpm($query->suggestion_facet);
+?>
+
+Building the facets
+-------------------
+
+We can now finish the query type class. The execute() method is called
+when active filters are added to the query. We will just set the
+attributes for the filters in the
+query:FacetapiExampleQuery::suggestion and
+FacetapiExampleQuery::length. 
+
+[FacetapiExampleTerm::execute]
+<?php
+ /**
+   * Adds the filter to the query object.
+   *
+   * @param $query
+   *   An object containing the query in the backend's native API.
+   */
+  public function execute($query) {
+    $name = $this->facet['name'];
+    $active_items = $this->adapter->getAllActiveItems();
+
+    foreach($active_items as $key => $item) {
+      $type = $item["field alias"];
+      $value = $item["value"];
+      if ($type == $name) {// This is our facet
+        $query->addFacet($type, $value);
+      }
+    }
+  }
+?>
+
+The method build handle the transformation from the raw search engine
+results to the facet array that will be displayed by the facet
+blocks. Each instance of FacetapiExampleTerm is associated to a facet,
+so we use the facet attribute to determine which facet to build.
+
+The array returned by this method has the following structure :
+"filter value" => array("#count" => number of results)0
+
+[FacetapiExampleTerm::build]
+<?php 
+  /**
+   * Initializes the facet's build array.
+   *
+   * @return array
+   *   The initialized render array.
+   */
+  public function build() {
+    $build = array();
+    // Makes sure there was at least one match.
+    if (!$this->adapter->hasMatches) {
+      return array();
+    }
+
+    // Get back to the query, facets are stored there
+    $query = $this->adapter->query;
+    $name = $this->facet["name"];
+
+    switch($name) {
+    case "length":
+      $res = $query->length_facet;
+      break;
+    case "suggestion":
+      $res = $query->suggestion_facet;
+      break;
+    default:
+      // Nothing to do
+      $res = NULL;
+    }
+
+    if ($res) {
+      foreach($res as $term => $count) {
+    $build[$term] = array("#count" => $count);
+      }
+    }
+
+    // If a facet is active, it is not present in the results. Add it.
+    if ($activeItems = $this->adapter->getActiveItems($this->facet)) {
+      foreach($activeItems as $key => $item) {
+    $term = $item["value"];
+    $count = 1;
+    $build[$term] = array("#count" => $count);
+      }
+    }
+    return $build;
+  }
+?>
+
+
+Final assembly
+--------------
+
+We make the final assembly in the hook_search execute(), where we
+build the adapter (essentially a singleton), the Query instance and
+then we execute the query.
+
+[hook_search_execute in facetapi.module.inc]
+<?php
+/**
+ * Implements hook_search_execute().
+ */
+function facetapi_example_search_execute($keys = NULL, $conditions = NULL) {
+  // Ensures the adapter is valid.
+  if (!$adapter = facetapi_adapter_load('facetapi_example')) {
+    return array();
+  }
+
+  // Sets search keys and adds active filters.
+  $adapter->setSearchKeys($keys);
+
+  $query = new FacetapiExampleQuery($keys);
+
+  $adapter->addActiveFilters($query);
+  $adapter->query = $query;
+
+  $results = $query->execute();
+
+  $adapter->hasMatches = (count($results) <= 0) ? False: True;
+
+  return $results;
+}
+?>
+
+The code also contains the menu to add administration pages for the
+search engine, to ensure we have access to the facet configuration
+page. 
+
+We can the activate the two facets and place the blocs on the search
+page. Enjoy!
+
+Acknowledgements
+----------------
+
+This tutorial has been written by Jouve (http://www.jouve.com)

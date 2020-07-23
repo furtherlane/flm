@@ -1,0 +1,16 @@
+<?php
+/**
+ * @file
+ * This file only declares that this module is a migration.
+ */
+
+/*
+ * You must implement hook_migrate_api(), setting the API level to 2, for
+ * your migration classes to be recognized by the Migrate module.
+ */
+function facetapi_example_data_migrate_api() {
+  $api = array(
+    'api' => 2,
+  );
+  return $api;
+}

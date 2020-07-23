@@ -1,0 +1,331 @@
+/* ----------- CATALOG LAYOUT ------------ */
+
+//addresses issue of extra-wide catalog view messing up header
+div.catalog-section {
+	overflow: scroll !important;
+}
+
+#catalog-main {
+	width: 100%;
+	min-width: 1400px;
+}
+
+
+/* ------> */
+
+
+#catalog-breadcrumb {
+	padding: 45px 0px 0px 45px;
+	font-weight: bold;
+}
+
+
+#catalog-sidebar-first { 
+	display: inline;
+	float: left; /* LTR */
+	position: relative;
+	padding-top: 0px;
+	width: 350px;
+}
+
+
+
+/* div containing catalog facet blocks */
+#catalog-sidebar-first .section {  
+	padding: 0px 30px 0px 45px;
+	width: 275px;
+}
+
+
+/* style catalog facet blocks */
+div#catalog-sidebar-first.column div.section div.region div.block-facetapi {
+    border: 1px solid #B3B4A7;
+    border-radius: 6px 6px 6px 6px;
+}
+
+div#sidebar-first.column div.section div.region div.block-facetapi {
+    border: 1px solid #B3B4A7;
+    border-radius: 6px 6px 6px 6px;
+}
+
+
+
+ul.facetapi-processed li.leaf {
+	list-style-type: none;
+	list-style-image: none;
+}
+
+
+
+/* div containing view table */
+#catalog-content {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	position: relative;
+	width: 75%;
+	vertical-align: top;
+}
+
+
+/* takes care of clearing floating divs */
+div#catalog-content:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+
+/* ------> ------> */
+
+
+div#catalog-content.column div.section {
+	vertical-align: top;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+
+div#catalog-content.column a#main-content {
+	display: none;
+	visibility: hidden;
+}
+
+div#catalog-content.column div.section h1#page-title {
+	display: none;
+	visibility: hidden;
+}
+
+
+div#catalog-content.column div.section div.tabs {
+	display: none;
+	visibility: hidden;
+}
+
+
+div#catalog-content.column div.section div.region {
+	width: 100%;
+}
+
+
+/* ------> ------> ------> ------> */
+
+
+
+div#catalog-content.column div.section div.region div#block-system-main.block {
+	width: 100%
+}
+
+
+/* ------> ------> ------> ------> ------> */
+
+
+/* remove space at top of catalog-header-table */
+div#catalog-content.column div.content {
+  	margin-top: 0px;
+	width: 100%;
+}
+
+
+/* ------> ------> ------> ------> ------> ------> */
+
+
+div#catalog-content.column div.section div.region div#block-system-main.block div.content div.view {
+	width: 100%;
+}
+
+
+/* ------> ------> ------> ------> ------> ------> ------> */
+
+
+div.content div.view div.view-content table.sticky-header {
+z-index: 1002; //addresses issue with jplayer scrolling above headers
+}
+
+
+
+div.content div.view table#catalog-header-table {
+min-width: 1115px;
+//min-width: 1302px;
+width: 100%;
+
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	vertical-align: top;
+}
+
+
+
+
+div.content div.view table#catalog-header-table tbody,  
+div.content div.view table#catalog-header-table tr,  
+div.content div.view table#catalog-header-table th,
+div.content div.view table#catalog-header-table td {
+	border: 0px;
+	padding: 9px;
+//	width: 100%;
+}
+
+
+
+div.content div.view table#catalog-header-table tbody tr td#catalog-header {
+	font-weight: bold;
+width: 150px;
+}
+
+
+div.content div.view table#catalog-header-table tbody tr td#catalog-top-pager {
+width: *%;
+}
+
+
+div#catalog-content.column div.section div.region div#block-system-main.block div.content div.view div.view-content {
+	width: 100%;
+}
+
+
+/* ------> ------> ------> ------> ------> ------> ------> ------> */
+
+
+table.views-table {
+	width: 100%;
+	margin-top: 0px;
+}
+
+
+/*  TABLE COLUMN HEADERS */
+
+
+/*
+//audio player cell;
+table.views-table td.views-field.views-field-field-audio-file-1 {
+padding: 4px 9px 4px 9px;
+margin: 0px;
+}
+*/
+
+table tr th.views-field.views-field.views-field-field-audio-file-1 { /* COLUMN 1 */
+	width: 20px;
+}
+
+
+table tr th.views-field.views-field.views-field-nid { /* COLUMN 2 */
+	width: 20px;
+}
+
+
+
+table tr th.views-field.views-field.views-field-title-1 { /* COLUMN 3 */
+	width: 160px;
+}
+
+table tr th.views-field.views-field.views-field-field-artist { /* COLUMN 4 */
+	width: 80px;
+}
+
+table tr th.views-field.views-field.views-field-field-music-genre { /* COLUMN 5 */
+	//width: 40px;
+	width: *%;
+}
+
+
+table tr th.views-field.views-field.views-field-field-length { /* COLUMN 6 */
+	width: 40px;
+}
+
+table tr th.views-field.views-field.views-field-field-mood { /* COLUMN 7 */
+	width: 100px;
+}
+
+table tr th.views-field.views-field.views-field-field-instruments { /* COLUMN 8 */
+	width: 200px;
+}
+
+/* now named vocal-instrumental! */
+table tr th.views-field.views-field.views-field-field-vocal-instrumental {
+	width: 80px;
+}
+
+/* column not displayed */
+table tr th.views-field.views-field.views-field-field-vocal-type {
+	width: 100px;
+}
+
+/* column not displayed */
+table tr th.views-field.views-field.views-field-field-ending-type {
+	width: 100px;
+}
+
+/* column not displayed */
+table tr th.views-field.views-field.views-field-field-tempo {
+	width: 100px;
+}
+
+/* column not displayed */
+table tr th.views-field.views-field.views-field-field-bpm {
+	width: 40px;
+}
+
+table tr th.views-field.views-field.views-field-field-download { /* COLUMN 9 */
+	width: 260px;
+}
+
+div#sm2-container.high_performance {
+	background: #292929;
+}
+
+
+/* ------ CONTACT ------ */
+div#content.column div.section h1 {
+	font-family: "Trebuchet MS","Bitstream Vera Sans","Gill Sans",Arial,"Century Gothic",verdana,lucida,helvetica,sans-serif;
+	padding: 20px 0px 20px 0px;
+}
+
+
+div#content.column div.section div#contact-message {
+	font-family: "Trebuchet MS","Bitstream Vera Sans","Gill Sans",Arial,"Century Gothic",verdana,lucida,helvetica,sans-serif;
+	padding-bottom: 20px;
+}
+
+
+
+/* FLM SITE */
+.credit-header {
+text-decoration: underline;
+font-weight: bold;
+}
+span.credit-sub-header {
+font-weight: bold;
+padding: 0px 0px 0px 15px;
+}
+div.field-item div ul.credit-list {
+margin: 0px 0px 16px 0px;
+padding: 0px 0px 0px 15px;
+}
+
+div.field-item div ul.credit-list li {
+//background: url("../images/list.png") no-repeat scroll left center transparent;
+list-style-type: none;
+//padding: 0 0 0 15px;
+}
+
+
+/* --- CLIENT LOGIN BLOCK --- */
+
+div.region div#block-flm-login-user-login-register.block div.content {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 600;
+}
+
+div.region div#block-flm-login-user-login-register.block div.content a.user-login {
+    background: url("../images/list.png") no-repeat scroll left top transparent;
+	padding: 0px 0px 0px 15px;
+	margin-right: 25px;
+	width: 22px;
+//	padding-right: 15px;
+}
+

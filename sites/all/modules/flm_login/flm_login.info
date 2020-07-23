@@ -1,0 +1,4 @@
+name = FLM Login
+description = A module that creates a custom login/register block.
+core = 7.x
+package = Custom Modules

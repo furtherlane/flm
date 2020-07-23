@@ -1,0 +1,227 @@
+<?php
+
+
+/*****
+ *
+ * DURATION_HHMMSS FORMATTER MODULE
+ *
+ * @file
+ * Custom formatter module, created to display 
+ * audio track lengths in hh:mm:ss format
+ *
+ */
+
+
+
+/**
+*
+* hook_theme()
+*
+*/
+/*
+function duration_hhmmss_theme() {
+
+}
+*/
+
+
+
+/**
+ * Implements hook_field_info().
+ */
+function duration_hhmmss_field_info() {
+  return array(
+    'duration_hhmmss' => array(
+      'label' => t('Duration as hh:mm:ss'),
+      'description' => t('Display track length in hh:mm:ss format'),
+      'translatable' => 0,
+      'settings' => array(),
+      'instance_settings' => array('format' => 'hh:mm:ss'),
+//      'default_widget' => 'hms_default_widget',
+//      'default_formatter' => 'hms_default_formatter',
+    ),
+  );
+}
+
+
+
+
+
+
+/**
+*
+* hook_field_formatter_info() - This tells Drupal what fields it applies to and what settings are available.
+*
+*/
+function duration_hhmmss_field_formatter_info() {
+
+  return array(
+    'duration_hhmmss_formatter' => array( //Machine name of the formatter
+      'label' => t('Duration hh:mm:ss'),
+      'field types' => array('Integer'), //This will only be available to Integer fields
+      'settings'  => array( //Array of the settings we'll create
+			'duration style' => 'hh:mm:ss', //give a default value for when the form is first loaded
+      ),
+    ),
+  );
+
+}
+
+
+
+/**
+*
+* hook_field_formatter_settings_form() - Here we'll tell Drupal how to generate the form that collects the options.
+*
+*/
+function duration_hhmmss_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  //This gets the view_mode where our settings are stored
+  $display = $instance['display'][$view_mode];
+  //This gets the actual settings
+  $settings = $display['settings'];
+  //Initialize the element variable
+  $element = array();
+  //Add your select box
+  $element['duration style'] = array(
+    '#type'           => 'select',                           // Use a select box widget
+    '#title'          => t('duration format'),                   // Widget label
+    '#description'    => t('Select duration format for the field'), // Helper text
+    '#default_value'  => $settings['duration style'],              // Get the value if it's already been set
+    '#options'        => array(
+      'standard'  => 'hh:mm:ss'
+    ),
+  );
+  return $element;
+
+}
+
+
+
+
+
+/**
+*
+* hook_field_formatter_settings_summary() - This displays the chosen settings on the 'Manage Display' page
+*
+*/
+
+function duration_field_formatter_settings_summary($field, $instance, $view_mode) {
+
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $summary = t('Use a @size to format the field', array(
+    '@size'     => $settings['duration style']
+  )); // we use t() for translation and placeholders to guard against attacks
+  return $summary;
+}
+
+
+
+
+
+/**
+*
+* hook_field_formatter_view() - This is the hook where we actually do the formatting
+*
+*/
+
+function duration_field_formatter_settings_summary($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+
+  $element = array(); // Initialize the var
+  $settings = $display['settings']; // get the settings
+//$style = $settings['duration style']; // The duration style setting selected in the settings form
+
+  foreach ($items as $delta => $item) {
+  	$sec = $item['safe_value']; //should it just be $item['value']?
+  	$padHours = false;
+  	$msec = false;
+
+  	if ($sec > 0) {
+  	  // start with a blank string
+      $hms = "";
+    
+      // do the hours first: there are 3600 seconds in an hour, so if we divide
+      // the total number of seconds by 3600 and throw away the remainder, we're
+      // left with the number of hours in those seconds
+      $hours = intval(intval($sec) / 3600); 
+
+      // add hours to $hms (with a leading 0 if asked for)
+      $hms .= ($padHours) 
+            ? str_pad($hours, 2, "0", STR_PAD_LEFT). ":"
+            : $hours. ":";
+    
+      // dividing the total seconds by 60 will give us the number of minutes
+      // in total, but we're interested in *minutes past the hour* and to get
+      // this, we have to divide by 60 again and then use the remainder
+      $minutes = intval(($sec / 60) % 60); 
+
+      // add minutes to $hms (with a leading 0 if needed)
+      $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT). ":";
+
+      // seconds past the minute are found by dividing the total number of seconds
+      // by 60 and using the remainder
+      $seconds = intval($sec % 60); 
+
+      // add seconds to $hms (with a leading 0 if needed)
+      $hms .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
+    
+      //append miliseconds
+      if ($msec) {
+        $hms .= '.' . $msec;
+      }
+    } else {
+        //dsm('not converting seconds');
+        $hms = $sec;
+    }
+
+    // done!
+//  $element[$delta] = array('#markup' => $hms);
+	$element[$delta]['#markup'] = $hms; //Assign it to the #markup of the element
+  }
+    
+  return $element;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

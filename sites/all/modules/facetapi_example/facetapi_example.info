@@ -1,0 +1,12 @@
+name = facetapi_example
+description = Facetapi example implementation
+package = search
+core = 7.x
+dependencies[] = search
+dependencies[] = facetapi
+configure = admin/config/search/facetapi_example
+files[] = facetapi_example.module
+files[] = facetapi_example.query.inc
+files[] = facetapi_example.engine.inc
+files[] = plugins/facetapi/adapter.inc
+files[] = plugins/facetapi/query_type_term.inc

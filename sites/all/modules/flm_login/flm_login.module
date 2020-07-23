@@ -1,0 +1,55 @@
+<?php
+
+/**
+* @file
+*
+* FLM LOGIN MODULE
+*
+* CREATES A CUSTOM LOGIN/REGISTER BLOCK
+*
+* @author Steve Nathanson
+*/
+
+/**
+ * Implements hook_block_info().
+ *
+ * (note: omit the 'cache' key if you wish to use default 'DRUPAL_CACHE_PER_ROLE')
+ */
+function flm_login_block_info() {
+  $blocks['user_login_register'] = array(
+    'info' => t('FLM Login Block'),
+    'cache' => DRUPAL_NO_CACHE,
+    'region' => 'header',
+    'status' => 1,
+  );
+  return $blocks;
+}
+ 
+/**
+ * Implements hook_block_view().
+ */
+function flm_login_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'user_login_register':
+
+ 	  if (user_is_logged_in()) {
+		$account = $GLOBALS['user']; //copy global user to local variable to avoid overwriting
+		$user_name = l(t('Hello @username', array('@username' => $account->name)), 'user', array('attributes' => array('class' => array('user-login'))));
+		$user_logout = l(t('Log out'), 'user/logout', array('attributes' => array('class' => array('user-logout'))));
+      	$block['subject'] = NULL;
+      	$block['content'] = $user_name . '' . $user_logout; 
+      }
+      else {
+
+/* Do Not Show Register Link */
+		$user_login = l(t('Client Login'), 'user/login', array('attributes' => array('class' => array('user-login'))));
+//		$user_register = l(t('Register'), 'user/register', array('attributes' => array('class' => array('user-register'))));
+ 		$block['subject'] = NULL;
+// 		$block['content'] = $user_login . '' . $user_register;     
+ 		$block['content'] = $user_login;     
+      }
+      break;
+  }
+  return $block;
+}

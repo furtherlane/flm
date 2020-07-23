@@ -1,0 +1,103 @@
+<?php
+
+/**
+*
+* flm_search_api_mod module
+* @file
+* Module exposes fields in Further Lane Music site to search api for indexing and facets.
+* i.e. track length (mm:ss)
+*/
+
+
+
+/**** NOTE: THE FOLLOWING CODE IS AN ATTEMPT TO MAKE SEARCH API RECOGNIZE HMS_FIELD FIELDS ****/
+
+
+/**
+ * Implements hook_hms_format_alter().
+ *
+ * Add custom format to hms_field module (i.e. mm:ss)
+ */
+/*
+function flm_search_api_mod_hms_format_alter() {
+
+	if (isset($format)) {
+	  $format[] = array('mm:ss' => 'mm:ss');
+//    $format = array('mm:ss' => 'mm:ss');
+	}
+	return $format;
+
+}
+*/
+
+
+
+/**
+ * Implements hook_theme().
+ */
+function flm_search_api_mod_theme($existing, $type, $theme, $path) {
+
+  //adds format of 'mm:ss' to hms_field module
+  //NOTE: 'offset' and 'default_value' added in hms_field 7.x-1.2 !!
+  return array(
+    'hms_mmss' => array(
+      'variables' => array('value' => 0, 'format' => 'mm:ss', 'leading_zero' => TRUE, 'running_since' => 0, 'offset' => 0, 'default_value' => 0),
+      'function' => 'theme_hms',
+	  'path' => drupal_get_path('module', 'hms_field'),
+    ),
+  );
+
+}
+
+
+
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function flm_search_api_mod_entity_property_info_alter(&$info) {
+
+  $info['node']['properties']['field_length'] = array(
+    'type' => 'text',
+    'label' => t('Track length'),
+    'getter callback' => 'flm_search_api_mod_field_length_getter_callback',
+  );
+}
+
+function flm_search_api_mod_field_length_getter_callback($item) {
+  if (isset($item->field_length) && ($item->field_length != NULL)) {
+    $field_length = field_get_items('node', $item, 'field_length');
+    if(isset($field_length[0]['value'])) {
+        return theme('hms_mmss',array('value' => $field_length[0]['value'])); //converts integer seconds to 'mm:ss' format
+//        return theme('hms',array('value' => $field_length[0]['value']));
+//        return theme('hms_natural_language',array('value' => $field_length[0]['value']));
+    }
+  }
+  else {
+  	return NULL;
+  }
+}
+
+
+
+/**
+ * Implements hook_facet_items_alter().
+ *
+ * To modify facet items output
+ *
+ * NOTE: requires installation of facetapi_bonus module and you must 
+ *       check "Rewrite facet items via callback function" on 
+ *       "Configure Facet Filters" area of Admin->Configuration->Search API
+ */
+/*
+function flm_search_api_mod_facet_items_alter(&$build, &$settings) {
+	if ($settings->facet == "field_length") { //machine name of facet (same as hms_field?)
+		foreach($build as $key => $item) {
+//			$build[$key]["#markup"] = _hms_formatted_to_seconds($item["#markup"], 'mm:ss');
+		}
+	}
+}
+*/
+
+
+
+

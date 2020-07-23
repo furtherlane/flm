@@ -1,0 +1,4 @@
+name = FLM Search API Mod
+description = Exposes fields in the Further Lane Music site to search api for indexing.
+core = 7.x
+package = Custom Modules

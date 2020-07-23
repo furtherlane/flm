@@ -1,0 +1,6 @@
+name = Example text data for the facetapi example
+description = Example text data (the sonnets of Shakespeare) from projet Gutenberg. The source data is in the public domain.
+dependencies[] = migrate
+core = 7.x
+files[] = facetapi_example_data.module
+files[] = sonnets.inc
