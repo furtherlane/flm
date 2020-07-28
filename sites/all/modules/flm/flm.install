@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Failed Login Messages install/uninstall/update functions.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function flm_install() {
+  $variables = array(
+    'flm_user_failed_login_message_default' => 'Sorry, unrecognized username or password. <a href="/user/password">Have you forgotten your password?</a>',
+    'flm_user_failed_login_message_penultimate' => 'Pay attention! You have entered your username or password [flm:user-penultimate-number] times incorrectly. If you make a wrong attempt, your account will be temporarily blocked. <a href="/user/password">Have you forgotten your password?</a>',
+    'flm_user_failed_login_message_last' => 'You have entered your username or password incorrectly too many times. Your account is temporarily blocked. Please try again in [flm:user-window]. <a href="/user/password">Have you forgotten your password?</a>',
+    'flm_user_failed_login_ip_message_default' => 'Sorry, too many failed login attempts from your IP address. This IP address is temporarily blocked. Try again later or <a href="/user/password">request a new password</a>.',
+  );
+
+  foreach ($variables as $name => $value) {
+    variable_set($name, $value);
+  }
+
+  if (!module_exists('variable_realm')) {
+    return;
+  }
+
+  // Get variable realm controller.
+  $controller = variable_realm_controller('language');
+  // Get enabled variables.
+  $old_variables = $controller->getEnabledVariables();
+
+  if (empty($old_variables)) {
+    $old_variables = array();
+  }
+
+  foreach ($variables as $name => $value) {
+    $old_variables[] = $name;
+
+    variable_realm_set('language', 'en', $name, $value);
+  }
+
+  $controller->setRealmVariable('list', $old_variables);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function flm_uninstall() {
+  variable_del('flm_user_failed_login_message_default');
+  variable_del('flm_user_failed_login_message_penultimate');
+  variable_del('flm_user_failed_login_message_last');
+  variable_del('flm_user_failed_login_ip_message_default');
+}

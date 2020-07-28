@@ -1,0 +1,218 @@
+<?php
+
+/**
+ * @file
+ * Failed Login Messages functionality.
+ */
+
+require_once 'includes/flm.token.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function flm_menu() {
+  $items = array();
+
+  $items['admin/config/people/accounts/flm'] = array(
+    'title' => 'Failed Login',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('flm_user_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/flm.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 50,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_variable_group_info().
+ */
+function flm_variable_group_info() {
+  $groups = array();
+
+  $groups['flm'] = array(
+    'title' => t('Failed login messages'),
+    'description' => t('Failed login messages'),
+    'access' => 'administer site configuration',
+    'path' => array('admin/config/people/accounts/flm'),
+  );
+
+  return $groups;
+}
+
+/**
+ * Implements hook_variable_info().
+ */
+function flm_variable_info($options) {
+  $variables = array();
+
+  $variables['flm_user_failed_login_message_default'] = array(
+    'type' => 'text',
+    'title' => t('User login default message', array(), $options),
+    'default' => '',
+    'group' => 'flm',
+  );
+
+  $variables['flm_user_failed_login_message_penultimate'] = array(
+    'type' => 'text',
+    'title' => t('User login penultimate message', array(), $options),
+    'default' => '',
+    'group' => 'flm',
+  );
+
+  $variables['flm_user_failed_login_message_last'] = array(
+    'type' => 'text',
+    'title' => t('User login last message', array(), $options),
+    'default' => '',
+    'group' => 'flm',
+  );
+
+  $variables['flm_user_failed_login_ip_message_default'] = array(
+    'type' => 'text',
+    'title' => t('IP login default message', array(), $options),
+    'default' => '',
+    'group' => 'flm',
+  );
+
+  return $variables;
+}
+
+/**
+ * Implements hook_form_FORM_alter().
+ */
+function flm_form_user_login_alter(&$form, $form_state) {
+  $validate = $form['#validate'];
+  $final_validate_key = array_search('user_login_final_validate', $validate);
+  $validate[$final_validate_key] = 'flm_user_login_final_validate';
+
+  $form['#validate'] = $validate;
+}
+
+/**
+ * The final validation handler on the login form.
+ *
+ * Sets a form error if user has not been authenticated, or if too many
+ * logins have been attempted. This validation function should always
+ * be the last one.
+ *
+ * This is a copy of user_login_final_validate() with changed error message.
+ *
+ * @see flm_form_user_login_alter()
+ */
+function flm_user_login_final_validate($form, &$form_state) {
+  if (empty($form_state['uid'])) {
+    $user_login_limit = variable_get('user_failed_login_user_limit', 5);
+    $user_login_window = variable_get('user_failed_login_user_window', 21600);
+
+    $identifier = isset($form_state['flood_control_user_identifier']) ? $form_state['flood_control_user_identifier'] : NULL;
+
+    // Always register an IP-based failed login event.
+    flood_register_event('failed_login_attempt_ip', variable_get('user_failed_login_ip_window', 3600));
+
+    // Register a per-user failed login event.
+    if ($identifier) {
+      flood_register_event('failed_login_attempt_user', $user_login_window, $identifier);
+    }
+
+    if (isset($form_state['flood_control_triggered'])) {
+      if ($form_state['flood_control_triggered'] == 'user') {
+        $login_number = flm_get_login_attempt_number('failed_login_attempt_user', $identifier, $user_login_window);
+        $message = flm_get_failed_login_message('user', $user_login_limit, $login_number);
+
+        form_set_error('name', $message);
+      }
+      else {
+        $message = flm_get_failed_login_message('ip');
+
+        // We did not find a uid, so the limit is IP-based.
+        form_set_error('name', $message);
+      }
+    }
+    else {
+      $login_number = flm_get_login_attempt_number('failed_login_attempt_user', $identifier, $user_login_window);
+      $message = flm_get_failed_login_message('user', $user_login_limit, $login_number);
+
+      form_set_error('name', $message);
+      watchdog('user', 'Login attempt failed for %user.', array('%user' => $form_state['values']['name']));
+    }
+  }
+  elseif (isset($form_state['flood_control_user_identifier'])) {
+    // Clear past failures for this user so as not to block a user who might
+    // log in and out more than once in an hour.
+    flood_clear_event('failed_login_attempt_user', $form_state['flood_control_user_identifier']);
+  }
+}
+
+/**
+ * Gets flood event count.
+ *
+ * @param string $name
+ *   The unique name of the event.
+ * @param string $identifier
+ *   Unique identifier of the current user. Defaults to their IP address.
+ * @param int $window
+ *   Number of seconds in the time window for this event.
+ *
+ * @return int
+ *   Number of attempts in flood table.
+ */
+function flm_get_login_attempt_number($name, $identifier, $window) {
+  if (empty($identifier)) {
+    $identifier = ip_address();
+  }
+
+  // Use db_query as it's faster.
+  $number = db_query(
+    "SELECT COUNT(*) FROM {flood} WHERE event = :event AND identifier = :identifier AND timestamp > :timestamp",
+    array(
+      ':event' => $name,
+      ':identifier' => $identifier,
+      ':timestamp' => REQUEST_TIME - $window
+    )
+  )->fetchField();
+
+  return $number ? $number : 0;
+}
+
+/**
+ * Gets proper message according to a flood type and current attempt number.
+ *
+ * @param string $type
+ *   Flood event type. Either 'user' or 'IP'.
+ * @param int $limit
+ *   The maximum number of times event can be performed for this $type.
+ * @param int $attempt
+ *   Current attempt number.
+ *
+ * @return string
+ *   The message for a end user.
+ */
+function flm_get_failed_login_message($type = 'user', $limit = 0, $attempt = 0) {
+  if ($type == 'ip') {
+    $output = variable_get('flm_user_failed_login_ip_message_default');
+  }
+  else {
+    if ($limit - $attempt == 1 && !empty($message = variable_get('flm_user_failed_login_message_penultimate'))) {
+      $output = $message;
+    }
+    elseif ($attempt >= $limit && !empty($message = variable_get('flm_user_failed_login_message_last'))) {
+      $output = $message;
+    }
+    else {
+      $output = variable_get('flm_user_failed_login_message_default');
+    }
+  }
+
+  $output = token_replace(
+    $output,
+    array(
+      'language' => $GLOBALS['language'],
+      'sanitize' => TRUE,
+      'clear' => TRUE,
+    )
+  );
+
+  return $output;
+}

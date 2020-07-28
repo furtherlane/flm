@@ -1,0 +1,13 @@
+name = Failed Login Messages
+description = Adds possiblity to alter messages to a user after unsuccesful login attempt
+package = User
+core = 7.x
+version = 7.0
+
+configure = admin/config/people/accounts/flm
+
+; Information added by Drupal.org packaging script on 2018-07-04
+version = "7.x-1.02"
+core = "7.x"
+project = "flm"
+datestamp = "1530698628"
