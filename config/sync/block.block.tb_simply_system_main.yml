@@ -1,0 +1,20 @@
+uuid: f34b7db8-5910-4d70-a4c7-fa20554a5be7
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - tb_simply
+id: tb_simply_system_main
+theme: tb_simply
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

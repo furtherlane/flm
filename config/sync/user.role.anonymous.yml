@@ -1,0 +1,21 @@
+uuid: c8296ed4-a083-4ba0-b4f5-19a4d01776d8
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: pq_mEIu_B4widZN7Ap81iCJSjShFFdcL0jEiCi8VrDk
+id: anonymous
+label: 'anonymous user'
+weight: 0
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access site-wide contact form'
+  - 'edit own comments'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'use text format filtered_html'
+  - 'use text format full_html'
+  - 'view body'
+  - 'view own body'

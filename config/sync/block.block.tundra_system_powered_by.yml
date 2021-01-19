@@ -1,0 +1,20 @@
+uuid: 1fa16c22-c999-4fe8-9b8e-5c4ea24cb406
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - tundra
+id: tundra_system_powered_by
+theme: tundra
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

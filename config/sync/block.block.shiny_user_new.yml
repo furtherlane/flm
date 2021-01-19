@@ -1,0 +1,24 @@
+uuid: a227ff64-9c8b-4daa-9795-2cf514ffa21f
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.who_s_new
+  module:
+    - views
+  theme:
+    - shiny
+id: shiny_user_new
+theme: shiny
+region: ''
+weight: 4
+provider: null
+plugin: 'views_block:who_s_new-block_1'
+settings:
+  id: 'views_block:who_s_new-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: '5'
+visibility: {  }

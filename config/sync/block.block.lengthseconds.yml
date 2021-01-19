@@ -1,0 +1,29 @@
+uuid: ef48c626-7a79-4bbe-b687-1b6fecf83687
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.length_seconds
+  module:
+    - facets
+    - system
+  theme:
+    - bartik
+id: lengthseconds
+theme: bartik
+region: sidebar_first
+weight: -10
+provider: null
+plugin: 'facet_block:length_seconds'
+settings:
+  id: 'facet_block:length_seconds'
+  label: 'Track Length'
+  provider: facets
+  label_display: visible
+  block_id: lengthseconds
+visibility:
+  request_path:
+    id: request_path
+    pages: /catalog
+    negate: false
+    context_mapping: {  }

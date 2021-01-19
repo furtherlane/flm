@@ -1,0 +1,8 @@
+uuid: 337e07ad-8040-4b1a-a99f-0efcbb30f70e
+langcode: en
+status: true
+dependencies: {  }
+name: Genre
+vid: music_genres
+description: 'Categories for music content (e.g. Rock, Pop, Blues, etc.)'
+weight: 0

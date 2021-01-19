@@ -1,0 +1,20 @@
+uuid: a9a64414-94c2-44f7-a1c8-ea6ac4426c8f
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - bs_flm_sub
+id: bs_flm_sub_system_powered_by
+theme: bs_flm_sub
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

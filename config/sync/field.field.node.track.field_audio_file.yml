@@ -1,0 +1,27 @@
+uuid: 146f891d-1d7b-4cca-846f-2d45ff356395
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_audio_file
+    - node.type.track
+  module:
+    - file
+id: node.track.field_audio_file
+field_name: field_audio_file
+entity_type: node
+bundle: track
+label: 'Audio File'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: tracks
+  file_extensions: 'mp3 wav aiff aif'
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

@@ -1,0 +1,14 @@
+uuid: 283d9636-2624-43be-8f23-bc368c2c2015
+langcode: en
+status: true
+dependencies: {  }
+id: catalog_download_user
+label: 'catalog download user'
+weight: 3
+is_admin: null
+permissions:
+  - 'access content'
+  - 'access direct download file'
+  - 'use search_api_sorts'
+  - 'use text format full_html'
+  - 'view field_download'

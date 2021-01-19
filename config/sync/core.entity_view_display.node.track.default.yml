@@ -1,0 +1,154 @@
+uuid: 84ba682e-7933-4670-8a36-1984fd07e8f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment_node_track.default
+    - field.field.node.track.body
+    - field.field.node.track.comment_node_track
+    - field.field.node.track.field_artist
+    - field.field.node.track.field_audio_file
+    - field.field.node.track.field_bpm
+    - field.field.node.track.field_download
+    - field.field.node.track.field_ending_type
+    - field.field.node.track.field_instruments
+    - field.field.node.track.field_length
+    - field.field.node.track.field_mood
+    - field.field.node.track.field_music_genre
+    - field.field.node.track.field_tempo
+    - field.field.node.track.field_vocal_instrumental
+    - field.field.node.track.field_vocal_type
+    - node.type.track
+  module:
+    - audiofield
+    - comment
+    - duration_field
+    - text
+    - user
+id: node.track.default
+targetEntityType: node
+bundle: track
+mode: default
+content:
+  body:
+    label: above
+    weight: 3
+    type: text_default
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  comment_node_track:
+    label: hidden
+    type: comment_default
+    weight: 9
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    region: content
+  field_artist:
+    label: above
+    weight: 0
+    type: entity_reference_label
+    settings:
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_audio_file:
+    type: audiofield_audioplayer
+    weight: 1
+    region: content
+    label: above
+    settings:
+      audio_player: default_mp3_player
+      audio_player_jplayer_theme: none
+      audio_player_wavesurfer_combine_files: false
+      audio_player_wavesurfer_audiorate: 1
+      audio_player_wavesurfer_autocenter: true
+      audio_player_wavesurfer_bargap: 0
+      audio_player_wavesurfer_barheight: 1
+      audio_player_wavesurfer_barwidth: null
+      audio_player_wavesurfer_cursorcolor: '#333'
+      audio_player_wavesurfer_cursorwidth: 1
+      audio_player_wavesurfer_forcedecode: false
+      audio_player_wavesurfer_normalize: false
+      audio_player_wavesurfer_progresscolor: '#555'
+      audio_player_wavesurfer_responsive: false
+      audio_player_wavesurfer_wavecolor: '#999'
+      audio_player_wordpress_combine_files: false
+      audio_player_wordpress_animation: true
+      audio_player_soundmanager_theme: default
+      audio_player_initial_volume: 8
+      audio_player_autoplay: false
+      audio_player_lazyload: false
+      download_button: false
+      download_link: false
+    third_party_settings: {  }
+  field_bpm:
+    label: above
+    weight: 2
+    type: number_decimal
+    settings:
+      thousand_separator: ' '
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    region: content
+  field_ending_type:
+    label: above
+    weight: 8
+    type: entity_reference_label
+    settings:
+      link: true
+    third_party_settings: {  }
+    region: content
+  field_instruments:
+    label: above
+    weight: 4
+    type: entity_reference_label
+    settings:
+      link: true
+    third_party_settings: {  }
+    region: content
+  field_length:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: duration_time_display
+    region: content
+  field_tempo:
+    label: above
+    weight: 7
+    type: entity_reference_label
+    settings:
+      link: true
+    third_party_settings: {  }
+    region: content
+  field_vocal_instrumental:
+    label: above
+    weight: 5
+    type: entity_reference_label
+    settings:
+      link: true
+    third_party_settings: {  }
+    region: content
+  field_vocal_type:
+    label: above
+    weight: 6
+    type: entity_reference_label
+    settings:
+      link: true
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_download: true
+  field_mood: true
+  field_music_genre: true
+  search_api_excerpt: true

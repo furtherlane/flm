@@ -1,0 +1,20 @@
+uuid: 4d42627e-fbef-47ec-b086-fed754dbfc55
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - omega_kickstart
+id: omega_kickstart_user_login
+theme: omega_kickstart
+region: ''
+weight: -5
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: ''
+  provider: user
+  label_display: '0'
+visibility: {  }

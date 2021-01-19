@@ -1,0 +1,26 @@
+uuid: 02345152-c35e-40dd-8713-8c6845949199
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vocal_instrumental
+    - node.type.track
+    - taxonomy.vocabulary.lyric_instrumental
+id: node.track.field_vocal_instrumental
+field_name: field_vocal_instrumental
+entity_type: node
+bundle: track
+label: Vocal/Instrumental
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler_settings:
+    sort:
+      field: _none
+    target_bundles:
+      lyric_instrumental: lyric_instrumental
+  handler: 'default:taxonomy_term'
+field_type: entity_reference

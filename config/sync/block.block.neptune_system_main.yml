@@ -1,0 +1,20 @@
+uuid: 018753ca-917e-4d30-9004-9a95105bf66a
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - neptune
+id: neptune_system_main
+theme: neptune
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

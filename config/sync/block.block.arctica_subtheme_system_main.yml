@@ -1,0 +1,20 @@
+uuid: 15af58d6-4d75-4ee2-b6f5-73390e9d9b19
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - arctica_subtheme
+id: arctica_subtheme_system_main
+theme: arctica_subtheme
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

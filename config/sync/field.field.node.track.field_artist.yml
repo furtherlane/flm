@@ -1,0 +1,32 @@
+uuid: e8d6b2fe-ff8e-43b2-86f6-06854e6ebae7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_artist
+    - node.type.artist
+    - node.type.track
+id: node.track.field_artist
+field_name: field_artist
+entity_type: node
+bundle: track
+label: Artist
+description: 'Please enter the artist name.'
+required: true
+translatable: false
+default_value:
+  -
+    target_id: '1'
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      artist: artist
+    sort:
+      field: title
+      direction: ASC
+    behaviors:
+      views-select-list:
+        status: 0
+field_type: entity_reference

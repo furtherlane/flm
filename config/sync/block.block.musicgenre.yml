@@ -1,0 +1,29 @@
+uuid: 87592ad1-99b5-4b96-8b52-f9946bbfdc13
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.music_genre
+  module:
+    - facets
+    - system
+  theme:
+    - bartik
+id: musicgenre
+theme: bartik
+region: sidebar_first
+weight: -11
+provider: null
+plugin: 'facet_block:music_genre'
+settings:
+  id: 'facet_block:music_genre'
+  label: 'Music Genre'
+  provider: facets
+  label_display: visible
+  block_id: musicgenre
+visibility:
+  request_path:
+    id: request_path
+    pages: /catalog
+    negate: false
+    context_mapping: {  }

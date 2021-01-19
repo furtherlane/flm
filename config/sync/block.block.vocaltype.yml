@@ -1,0 +1,29 @@
+uuid: 07709ddb-080b-4c4c-86d8-d2340da908a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.vocal_type
+  module:
+    - facets
+    - system
+  theme:
+    - bartik
+id: vocaltype
+theme: bartik
+region: sidebar_first
+weight: -6
+provider: null
+plugin: 'facet_block:vocal_type'
+settings:
+  id: 'facet_block:vocal_type'
+  label: 'Vocal Type'
+  provider: facets
+  label_display: visible
+  block_id: vocaltype
+visibility:
+  request_path:
+    id: request_path
+    pages: /catalog
+    negate: false
+    context_mapping: {  }

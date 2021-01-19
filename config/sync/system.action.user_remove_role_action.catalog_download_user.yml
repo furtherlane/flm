@@ -1,0 +1,14 @@
+uuid: 60719bab-b80b-4fa2-b4d8-0dee549dc1ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.catalog_download_user
+  module:
+    - user
+id: user_remove_role_action.catalog_download_user
+label: 'Remove the catalog download user role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: catalog_download_user

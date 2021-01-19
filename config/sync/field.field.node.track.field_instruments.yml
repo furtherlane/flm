@@ -1,0 +1,26 @@
+uuid: ec04c163-4ddf-4992-bcb1-a3eac6f84c87
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_instruments
+    - node.type.track
+    - taxonomy.vocabulary.instrumentation
+id: node.track.field_instruments
+field_name: field_instruments
+entity_type: node
+bundle: track
+label: Instruments
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler_settings:
+    sort:
+      field: _none
+    target_bundles:
+      instrumentation: instrumentation
+  handler: 'default:taxonomy_term'
+field_type: entity_reference

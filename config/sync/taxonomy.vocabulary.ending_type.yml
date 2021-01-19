@@ -1,0 +1,8 @@
+uuid: 7520debc-e392-4f15-a067-8ee92ad176b7
+langcode: en
+status: true
+dependencies: {  }
+name: 'Ending Type'
+vid: ending_type
+description: 'fade-out, sustain, button'
+weight: 0

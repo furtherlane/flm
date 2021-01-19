@@ -1,0 +1,20 @@
+uuid: a3ddb686-9677-40a6-aa3d-25e4cf84fc02
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - garland
+id: garland_user_login
+theme: garland
+region: ''
+weight: 0
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: ''
+  provider: user
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,26 @@
+uuid: e2a459fd-f511-4d2f-811c-c651d4414b63
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mood
+    - node.type.track
+    - taxonomy.vocabulary.mood
+id: node.track.field_mood
+field_name: field_mood
+entity_type: node
+bundle: track
+label: Mood
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler_settings:
+    sort:
+      field: _none
+    target_bundles:
+      mood: mood
+  handler: 'default:taxonomy_term'
+field_type: entity_reference

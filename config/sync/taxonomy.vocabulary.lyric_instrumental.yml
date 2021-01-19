@@ -1,0 +1,8 @@
+uuid: 18492ba5-953b-423c-8da7-684d97e1f4eb
+langcode: en
+status: true
+dependencies: {  }
+name: Vocal/Instrumental
+vid: lyric_instrumental
+description: 'vocal, instrumental'
+weight: 0

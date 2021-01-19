@@ -16,9 +16,23 @@
     ],
     "require": {
         "composer/installers": "^1.2",
+        "drupal/admin_toolbar": "^2.4",
+        "drupal/audiofield": "^1.9",
+        "drupal/captcha": "^1.1",
+        "drupal/config_split": "^1.7",
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-project-message": "^8.8",
         "drupal/core-recommended": "^8.8",
+        "drupal/ctools": "^3.4",
+        "drupal/devel": "^4.0",
+        "drupal/duration_field": "^2.0",
+        "drupal/facets": "^1.5",
+        "drupal/hms_field": "^1.0@beta",
+        "drupal/libraries": "^3.0@alpha",
+        "drupal/pathauto": "^1.8",
+        "drupal/search_api": "^1.17",
+        "drupal/token": "^1.7",
+        "drupal/xmlsitemap": "^1.0",
         "drush/drush": "^10.3"
     },
     "require-dev": {
@@ -33,20 +47,29 @@
         "sort-packages": true
     },
     "extra": {
+        "enable-patching": true,
+        "patches": {
+            "drupal/facets": {
+                "All link in facets": "https://www.drupal.org/files/issues/2018-07-26/2692027-82-facet_reset_link.patch",
+                "Multiple dependent facet": "https://www.drupal.org/files/issues/2018-11-22/multiple_dependent_facets-3015387-2.patch",
+                "Allow block plugins to determine if they are being previewed": "https://www.drupal.org/files/issues/2019-01-22/3027593-facets-2.patch",
+                "Facets with AJAX not working in most of situations": "https://www.drupal.org/files/issues/2019-05-14/facets-ajax-3052574-13.patch"
+            }
+        },
         "drupal-scaffold": {
             "locations": {
-                "web-root": "web/"
+                "web-root": "docroot/"
             }
         },
         "installer-paths": {
-            "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library"],
-            "web/modules/contrib/{$name}": ["type:drupal-module"],
-            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "docroot/core": ["type:drupal-core"],
+            "docroot/libraries/{$name}": ["type:drupal-library"],
+            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
+            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
-            "web/modules/custom/{$name}": ["type:drupal-custom-module"],
-            "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
+            "docroot/modules/custom/{$name}": ["type:drupal-custom-module"],
+            "docroot/themes/custom/{$name}": ["type:drupal-custom-theme"]
         },
         "drupal-core-project-message": {
             "include-keys": ["homepage", "support"],

@@ -1,0 +1,20 @@
+uuid: 097c6b17-42fc-469c-bc01-b81cff8f2a4d
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - commerce_kickstart_theme
+id: commerce_kickstart_theme_system_main
+theme: commerce_kickstart_theme
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,26 @@
+uuid: b2dd569d-658b-4f61-9f22-1c1c063e4967
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vocal_type
+    - node.type.track
+    - taxonomy.vocabulary.vocals
+id: node.track.field_vocal_type
+field_name: field_vocal_type
+entity_type: node
+bundle: track
+label: 'Vocal Type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler_settings:
+    sort:
+      field: _none
+    target_bundles:
+      vocals: vocals
+  handler: 'default:taxonomy_term'
+field_type: entity_reference

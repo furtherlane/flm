@@ -1,0 +1,20 @@
+uuid: 25c62ee8-23c6-4ea8-a284-f26d2f6f51bc
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - responsive_blog
+id: responsive_blog_system_main
+theme: responsive_blog
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

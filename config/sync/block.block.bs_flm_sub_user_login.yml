@@ -1,0 +1,20 @@
+uuid: a6ae4767-81c4-41b5-9fde-b71584fcb526
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - bs_flm_sub
+id: bs_flm_sub_user_login
+theme: bs_flm_sub
+region: ''
+weight: -5
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: ''
+  provider: user
+  label_display: '0'
+visibility: {  }

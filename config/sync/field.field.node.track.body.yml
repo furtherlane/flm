@@ -1,0 +1,23 @@
+uuid: 6064a56b-fced-448f-ba49-5337a6e4a7e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.track
+  module:
+    - text
+id: node.track.body
+field_name: body
+entity_type: node
+bundle: track
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

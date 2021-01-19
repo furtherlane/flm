@@ -1,0 +1,20 @@
+uuid: 8ce08fb9-21a5-46e7-95a4-9812957e632f
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - shiny
+id: shiny_system_main
+theme: shiny
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

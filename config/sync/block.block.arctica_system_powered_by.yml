@@ -1,0 +1,20 @@
+uuid: 77fa7aa1-7b67-4eb2-99bb-40a090d12624
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - arctica
+id: arctica_system_powered_by
+theme: arctica
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,29 @@
+uuid: 46b14d15-289d-42ef-9ffb-694ad93b1b9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.ending_type
+  module:
+    - facets
+    - system
+  theme:
+    - bartik
+id: endingtype
+theme: bartik
+region: sidebar_first
+weight: -5
+provider: null
+plugin: 'facet_block:ending_type'
+settings:
+  id: 'facet_block:ending_type'
+  label: 'Ending Type'
+  provider: facets
+  label_display: visible
+  block_id: endingtype
+visibility:
+  request_path:
+    id: request_path
+    pages: /catalog
+    negate: false
+    context_mapping: {  }

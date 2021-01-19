@@ -1,0 +1,20 @@
+uuid: 92bceb63-1811-407e-9629-c420fcb8dc0f
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - touchpro
+id: touchpro_system_main
+theme: touchpro
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,20 @@
+uuid: 02f41e63-d89a-4e1a-bc0b-b89de20666bd
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - samethattune
+id: samethattune_user_login
+theme: samethattune
+region: ''
+weight: -5
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: ''
+  provider: user
+  label_display: '0'
+visibility: {  }

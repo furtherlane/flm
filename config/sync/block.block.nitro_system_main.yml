@@ -1,0 +1,20 @@
+uuid: 0b60a69c-5fab-460c-bf9e-a30ee06d6136
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - nitro
+id: nitro_system_main
+theme: nitro
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

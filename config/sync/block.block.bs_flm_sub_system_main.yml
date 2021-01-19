@@ -1,0 +1,20 @@
+uuid: 0a490aa8-c4c1-4fdb-811e-c694a620be19
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - bs_flm_sub
+id: bs_flm_sub_system_main
+theme: bs_flm_sub
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

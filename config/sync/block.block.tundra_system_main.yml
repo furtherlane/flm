@@ -1,0 +1,20 @@
+uuid: dba08746-1e21-4477-8d77-5f5f1a70a5bf
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - tundra
+id: tundra_system_main
+theme: tundra
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

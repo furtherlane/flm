@@ -1,0 +1,20 @@
+uuid: 03539990-7dc9-4f6b-aeca-95aa37c22ec2
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - furtherlanemusic
+id: furtherlanemusic_user_login
+theme: furtherlanemusic
+region: ''
+weight: -5
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: ''
+  provider: user
+  label_display: '0'
+visibility: {  }

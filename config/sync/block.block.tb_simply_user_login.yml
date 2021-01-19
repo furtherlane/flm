@@ -1,0 +1,20 @@
+uuid: 6a57d08b-ba86-4641-a81c-6e1244fa6dd2
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - tb_simply
+id: tb_simply_user_login
+theme: tb_simply
+region: ''
+weight: 0
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: ''
+  provider: user
+  label_display: '0'
+visibility: {  }

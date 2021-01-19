@@ -1,0 +1,8 @@
+uuid: 5441f37c-b6b0-48df-99a5-6b4baca35f2d
+langcode: en
+status: true
+dependencies: {  }
+name: Instrumentation
+vid: instrumentation
+description: Instruments
+weight: 0

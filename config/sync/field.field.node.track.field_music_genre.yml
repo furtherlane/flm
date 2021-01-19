@@ -1,0 +1,52 @@
+uuid: 32a54525-27cb-4e6c-8034-1eda69f865ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_music_genre
+    - node.type.track
+    - taxonomy.vocabulary.music_genres
+id: node.track.field_music_genre
+field_name: field_music_genre
+entity_type: node
+bundle: track
+label: 'Music Genre'
+description: 'Please enter the music genre of the recording'
+required: true
+translatable: false
+default_value:
+  -
+    tid: '25'
+    vid: '2'
+    name: Rock
+    description: '<p>Music genre (e.g. The Beatles, The Rolling Stones, The Who, Buddy Holly, Little Richard, Chuck Berry, Jerry Lee Lewis, Elvis Presley, etc.).</p>'
+    format: full_html
+    weight: '24'
+    vocabulary_machine_name: music_genres
+    rdf_mapping:
+      rdftype:
+        - 'skos:Concept'
+      name:
+        predicates:
+          - 'rdfs:label'
+          - 'skos:prefLabel'
+      description:
+        predicates:
+          - 'skos:definition'
+      vid:
+        predicates:
+          - 'skos:inScheme'
+        type: rel
+      parent:
+        predicates:
+          - 'skos:broader'
+        type: rel
+default_value_callback: ''
+settings:
+  handler_settings:
+    sort:
+      field: _none
+    target_bundles:
+      music_genres: music_genres
+  handler: 'default:taxonomy_term'
+field_type: entity_reference

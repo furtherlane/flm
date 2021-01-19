@@ -1,0 +1,14 @@
+uuid: 3e503b91-1f44-4bab-bd79-0bff23ebbdbf
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.catalog_download_user
+  module:
+    - user
+id: user_add_role_action.catalog_download_user
+label: 'Add the catalog download user role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: catalog_download_user

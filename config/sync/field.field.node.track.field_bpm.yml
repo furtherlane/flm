@@ -1,0 +1,23 @@
+uuid: 7248de0a-f1d3-4c8c-b036-8936458fb10c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bpm
+    - node.type.track
+id: node.track.field_bpm
+field_name: field_bpm
+entity_type: node
+bundle: track
+label: BPM
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 1
+  max: !!float 400
+  prefix: ''
+  suffix: ''
+field_type: decimal

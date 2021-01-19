@@ -1,0 +1,29 @@
+uuid: eefc44c0-062d-4a5a-9121-43e90b50930e
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.tempo
+  module:
+    - facets
+    - system
+  theme:
+    - bartik
+id: tempo
+theme: bartik
+region: sidebar_first
+weight: -8
+provider: null
+plugin: 'facet_block:tempo'
+settings:
+  id: 'facet_block:tempo'
+  label: Tempo
+  provider: facets
+  label_display: visible
+  block_id: tempo
+visibility:
+  request_path:
+    id: request_path
+    pages: /catalog
+    negate: false
+    context_mapping: {  }

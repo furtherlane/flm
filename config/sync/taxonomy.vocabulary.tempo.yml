@@ -1,0 +1,8 @@
+uuid: bd13d493-43c1-4841-ae51-454f1897bc33
+langcode: en
+status: true
+dependencies: {  }
+name: Tempo
+vid: tempo
+description: 'Speed at which a song is played'
+weight: 0

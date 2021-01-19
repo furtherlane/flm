@@ -1,0 +1,20 @@
+uuid: 3a2f1c2e-12b5-4e99-8636-065a5ea4150e
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - furtherlanemusic
+id: furtherlanemusic_system_main
+theme: furtherlanemusic
+region: ''
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,20 @@
+uuid: 99562041-9a1c-4fbe-ab73-5fa8101b9503
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - samethattune
+id: samethattune_system_powered_by
+theme: samethattune
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

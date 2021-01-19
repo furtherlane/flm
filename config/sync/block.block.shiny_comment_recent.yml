@@ -1,0 +1,24 @@
+uuid: 4ad836a3-0702-4f00-a692-66e1bcb67a72
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.comments_recent
+  module:
+    - views
+  theme:
+    - shiny
+id: shiny_comment_recent
+theme: shiny
+region: ''
+weight: -2
+provider: null
+plugin: 'views_block:comments_recent-block_1'
+settings:
+  id: 'views_block:comments_recent-block_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility: {  }

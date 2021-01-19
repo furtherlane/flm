@@ -1,0 +1,20 @@
+uuid: 794ce9c6-8dbb-46d5-b856-163f898e35d3
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - arti_subtheme
+id: arti_subtheme_system_powered_by
+theme: arti_subtheme
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

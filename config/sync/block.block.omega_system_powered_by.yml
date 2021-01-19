@@ -1,0 +1,20 @@
+uuid: 6286dedf-8c39-47f6-b631-4bd7a9fac692
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - omega
+id: omega_system_powered_by
+theme: omega
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

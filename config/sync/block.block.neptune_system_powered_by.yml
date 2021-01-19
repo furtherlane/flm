@@ -1,0 +1,20 @@
+uuid: 62a9d38b-ba0f-4470-8a97-fe869f831e1c
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - neptune
+id: neptune_system_powered_by
+theme: neptune
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

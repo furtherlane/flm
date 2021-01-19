@@ -1,0 +1,8 @@
+uuid: 26b1c451-da48-4367-8a62-e1115075e194
+langcode: en
+status: true
+dependencies: {  }
+name: 'Vocal Type'
+vid: vocals
+description: ''
+weight: 0

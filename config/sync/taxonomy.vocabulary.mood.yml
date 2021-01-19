@@ -1,0 +1,8 @@
+uuid: 48dbe10e-b100-4b0a-bda0-849839501ab2
+langcode: en
+status: true
+dependencies: {  }
+name: Mood
+vid: mood
+description: 'Vibe, feel or theme of content'
+weight: 0

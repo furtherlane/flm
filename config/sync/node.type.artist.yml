@@ -1,0 +1,18 @@
+uuid: 39e59e8e-751a-48c8-900e-f2df724159fb
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main-menu
+    parent: 'main-menu:0:'
+name: Artist
+type: artist
+description: 'Content type representing the artist responsible for a recorded work (note: different from the songwriter(s) of the work).'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true

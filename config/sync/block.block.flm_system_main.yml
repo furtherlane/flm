@@ -1,0 +1,20 @@
+uuid: 1dabf40e-7912-43ae-92ae-5752ed43f961
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - flm
+id: flm_system_main
+theme: flm
+region: ''
+weight: -15
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

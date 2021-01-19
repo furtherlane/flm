@@ -1,0 +1,8 @@
+uuid: 1b183010-b1a5-4461-b514-792f7bae4c50
+langcode: en
+status: true
+dependencies: {  }
+id: comment_node_track
+label: 'Track comment'
+target_entity_type_id: node
+description: null

@@ -1,0 +1,30 @@
+uuid: b6a65da2-2f5c-4dc4-bd11-2b6122c8ae18
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:3d839dcb-46fb-45dd-b040-765e8cff3434'
+  module:
+    - block_content
+    - system
+  theme:
+    - flm
+id: flm_block_1
+theme: flm
+region: ''
+weight: -15
+provider: null
+plugin: 'block_content:3d839dcb-46fb-45dd-b040-765e8cff3434'
+settings:
+  id: 'block_content:3d839dcb-46fb-45dd-b040-765e8cff3434'
+  label: ''
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /contact

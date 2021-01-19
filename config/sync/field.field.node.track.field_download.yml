@@ -1,0 +1,27 @@
+uuid: 16503b24-99c5-40ed-8385-175d603be54f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_download
+    - node.type.track
+  module:
+    - file
+id: node.track.field_download
+field_name: field_download
+entity_type: node
+bundle: track
+label: Download
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: downloads
+  file_extensions: 'mp3 wav aiff aif'
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

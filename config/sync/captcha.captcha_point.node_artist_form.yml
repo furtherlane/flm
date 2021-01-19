@@ -1,0 +1,7 @@
+uuid: cda9b135-faad-445d-9ccd-252a98521dea
+langcode: en
+status: false
+dependencies: {  }
+formId: node_artist_form
+captchaType: default
+label: null

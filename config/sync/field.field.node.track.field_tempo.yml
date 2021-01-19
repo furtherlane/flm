@@ -1,0 +1,26 @@
+uuid: 0af1b2df-ed4c-4bba-80c2-f5a67ef6c04f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tempo
+    - node.type.track
+    - taxonomy.vocabulary.tempo
+id: node.track.field_tempo
+field_name: field_tempo
+entity_type: node
+bundle: track
+label: Tempo
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler_settings:
+    sort:
+      field: _none
+    target_bundles:
+      tempo: tempo
+  handler: 'default:taxonomy_term'
+field_type: entity_reference

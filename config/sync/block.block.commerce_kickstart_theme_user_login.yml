@@ -1,0 +1,20 @@
+uuid: d5fc14f4-9c03-474c-a30d-d265f7cc1410
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - commerce_kickstart_theme
+id: commerce_kickstart_theme_user_login
+theme: commerce_kickstart_theme
+region: ''
+weight: -15
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: ''
+  provider: user
+  label_display: '0'
+visibility: {  }

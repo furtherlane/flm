@@ -1,0 +1,20 @@
+uuid: 40f05f0e-2224-49df-8df0-ea78814aa67e
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - alpha
+id: alpha_system_powered_by
+theme: alpha
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

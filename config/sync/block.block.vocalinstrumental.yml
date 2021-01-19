@@ -1,0 +1,29 @@
+uuid: 6463d7ec-e75a-4501-ba3c-e406e8c4e628
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.vocal_instrumental
+  module:
+    - facets
+    - system
+  theme:
+    - bartik
+id: vocalinstrumental
+theme: bartik
+region: sidebar_first
+weight: -4
+provider: null
+plugin: 'facet_block:vocal_instrumental'
+settings:
+  id: 'facet_block:vocal_instrumental'
+  label: Vocal/Instrumental
+  provider: facets
+  label_display: visible
+  block_id: vocalinstrumental
+visibility:
+  request_path:
+    id: request_path
+    pages: /catalog
+    negate: false
+    context_mapping: {  }

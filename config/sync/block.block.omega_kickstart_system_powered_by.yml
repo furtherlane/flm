@@ -1,0 +1,20 @@
+uuid: 3b84239e-6dd4-496a-9d79-d235a78123d0
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - omega_kickstart
+id: omega_kickstart_system_powered_by
+theme: omega_kickstart
+region: ''
+weight: 10
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: ''
+  provider: system
+  label_display: '0'
+visibility: {  }

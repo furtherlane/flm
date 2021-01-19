@@ -1,0 +1,29 @@
+uuid: 75395920-50e4-4b95-b14e-dd6b50d0a6d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.mood
+  module:
+    - facets
+    - system
+  theme:
+    - bartik
+id: mood
+theme: bartik
+region: sidebar_first
+weight: -9
+provider: null
+plugin: 'facet_block:mood'
+settings:
+  id: 'facet_block:mood'
+  label: Mood
+  provider: facets
+  label_display: visible
+  block_id: mood
+visibility:
+  request_path:
+    id: request_path
+    pages: /catalog
+    negate: false
+    context_mapping: {  }
