@@ -1,0 +1,98 @@
+/* 
+Theme Name: Bootstrap 4 Sass
+Description: Bootstrap 4 with Sass
+*/
+
+// import files
+@import "import";
+
+/* GENERAL STYLES
+-------------------------------------------------*/
+
+body {
+    background: $white;
+}
+
+#navbar-main {
+    background-color: #1d84c3;
+    background-image: -webkit-linear-gradient(top, #055a8e 0%, #1d84c3 100%);
+    background-image: linear-gradient(to bottom, #055a8e 0%, #1d84c3 100%);
+}
+
+/* Grid for page content */
+div#page {
+    display: grid;
+    grid-auto-rows: auto;
+    height: 100VH;
+}
+
+header {
+    grid-row: 1 / 2;
+    background-color: #f5f5f5;
+}
+
+div.highlighted {
+    grid-row: 2 / 3;
+}
+
+div#main-wrapper {
+    grid-row: 3 / 4;
+}
+
+footer {
+    grid-row: 4 / 5;
+    background-color: #1d84c3;
+    background-image: -webkit-linear-gradient(top, #055a8e 0%, #1d84c3 100%);
+    background-image: linear-gradient(to bottom, #055a8e 0%, #1d84c3 100%);
+}
+
+h1.title {
+    line-height: normal;
+    font-size: 1.5rem;
+    margin: 1rem 0rem 0rem 0rem;
+}
+
+/* COLORS 
+--------------------------------------------------*/
+
+a {
+    color: $accent-shade;
+}
+
+.bg-inverse {
+    background: $primary-shade !important;
+}
+
+.site-footer {
+    background: $accent-shade !important;
+}
+
+.menu--main li a {
+    color: $primary-shade;
+}
+
+.menu--account li a {
+    color: $primary-shade;
+}
+
+.site-name-slogan a {
+    text-decoration: none;
+}
+
+.card-group img {
+    margin: 0;
+    width: 100%;
+    height: auto;
+}
+
+.card-group .field--type-image {
+    margin: 0
+}
+
+.slick {
+    width: 100%;
+}
+
+.slick>div {
+    margin: 0 15px;
+}
