@@ -18,6 +18,8 @@
         "composer/installers": "^1.2",
         "drupal/admin_toolbar": "^2.4",
         "drupal/audiofield": "^1.9",
+        "drupal/bootstrap_barrio": "^5.1",
+        "drupal/bootstrap_sass": "^5.0",
         "drupal/captcha": "^1.1",
         "drupal/config_split": "^1.7",
         "drupal/core-composer-scaffold": "^8.8",
@@ -90,5 +92,11 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "mkdir -p docroot/libraries/bootstrap",
+            "cp -R vendor/twbs/bootstrap/dist docroot/libraries/bootstrap"
+        ]
     }
 }
